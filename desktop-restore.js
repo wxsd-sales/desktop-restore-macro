@@ -17,7 +17,7 @@ or implied.
  *                    	wimills@cisco.com
  *                    	Cisco Systems
  * 
- * Version: 1-0-1
+ * Version: 1-0-2
  * Released: 11/01/22
  * 
  * This is a simple Webex Devices Macro which shows your local desktop 
@@ -69,8 +69,10 @@ xapi.Event.PresentationPreviewStopped.on(event => {
 xapi.Event.CallSuccessful.on(event => {
   if(event.CallId == callEvent.callId && callEvent.hasOwnProperty('restore')){
     alert('Presentation stopped due to answering incoming call, restoring preview');
-    xapi.Command.Presentation.Start(
-    { ConnectorId: callEvent.restore, SendingMode: 'LocalOnly' });
+    xapi.Command.Presentation.Start({ 
+      ConnectorId: callEvent.restore, 
+      SendingMode: 'LocalOnly'
+    });
     console.log('Restoring Pres Preview from source: ' + callEvent.restore)
     delete callEvent.restore;
     delete callEvent.callId;
@@ -78,7 +80,9 @@ xapi.Event.CallSuccessful.on(event => {
 });
 
 xapi.Event.CallDisconnect.on(() => {
+  console.log('Call Disconnect')
   if(callEvent.hasOwnProperty('callId'))
+    console.log('Deleting old Call Id: ' +callEvent.callId)
     delete callEvent.callId;
 });
 
