@@ -24,7 +24,7 @@ or implied.
  * after an answered call has closed it.
  * 
  * Full Readme and source code availabel on Github:
- * https://github.com/wxsd-sales/desktop-restore-macr
+ * https://github.com/wxsd-sales/desktop-restore-macro
  * 
  ********************************************************/
 import xapi from 'xapi';
