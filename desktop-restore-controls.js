@@ -64,13 +64,13 @@ function alert(message){
 }
 
 function processWidget(e) {
-  console.log('Widget Event ' +e.WidgetId)
+  console.log('Widget Event: ' +e.WidgetId)
   if(e.Type !== 'changed' && e.WidgetId!='desktop-restore-widget'){return}
     if(e.Value == 'on') {
-      console.log('Enabling feature')
+      console.log('Enabling feature');
       enabled = true;
     } else {
-      console.log('Disabling feature')
+      console.log('Disabling feature');
       enabled = false;
     }
   
@@ -80,7 +80,6 @@ function processWidget(e) {
 function syncUI() {
   xapi.Command.UserInterface.Extensions.Widget.SetValue(
     { Value: (enabled) ? 'on' : 'off', WidgetId: 'desktop-restore-widget' });
-  config.autoClose && xapi.Command.UserInterface.Extensions.Panel.Close()
 }
 
 
@@ -90,6 +89,7 @@ function createPanel() {
     <Version>1.9</Version>
     <Panel>
       <Location>HomeScreen</Location>
+      <Type>Home</Type>
       <Icon>Camera</Icon>
       <Name>${config.name}</Name>
       <ActivityType>Custom</ActivityType>
@@ -109,7 +109,7 @@ function createPanel() {
   xapi.Command.UserInterface.Extensions.Panel.Save(
     { PanelId: 'desktop-restore' },
     panel
-  ).then(() => syncUI())
+  )
 }
 
 createPanel();
