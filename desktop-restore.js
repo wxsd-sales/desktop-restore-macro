@@ -17,7 +17,7 @@ or implied.
  *                    	wimills@cisco.com
  *                    	Cisco Systems
  * 
- * Version: 1-0-0
+ * Version: 1-0-1
  * Released: 11/01/22
  * 
  * This is a simple Webex Devices Macro which shows your local desktop 
@@ -58,6 +58,9 @@ xapi.Event.PresentationPreviewStopped.on(event => {
     return;
   if(event.Cause == 'userRequested' && callEvent.hasOwnProperty('callId')) {
     console.log('Pres. Preview Stopped while receiving call, storing local source: ' +event.LocalSource);
+    callEvent.restore = event.LocalSource;
+  } else if(event.Cause == 'enteringConference' && callEvent.hasOwnProperty('callId')) {
+    console.log('Pres. Preview Stopped while entering conference, storing local source: ' +event.LocalSource);
     callEvent.restore = event.LocalSource;
   }
 })
